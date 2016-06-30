@@ -15,7 +15,7 @@ public class TestService {
 	private TestRepository testRepository;
 	
 	public List<TestEntity> getAllTestStrings(){
-		return testRepository.findAll();
+		return (List<TestEntity>) testRepository.findAll();
 	}
 	
 	public void save(TestEntity entity){
