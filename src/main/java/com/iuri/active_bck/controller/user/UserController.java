@@ -34,6 +34,12 @@ public class UserController {
 		return map;
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, produces="application/json", params={"userId"})
+	@ResponseBody
+	public User findByUserId(@RequestParam int userId){
+		return userService.findByUserId(userId);
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, produces="application/json", params={"username", "password"})
 	@ResponseBody
 	public User findByUsernameAndPassword(@RequestParam String username, @RequestParam String password){

@@ -2,9 +2,13 @@ package com.iuri.active_bck.entity.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,6 +27,11 @@ public class User {
 	private String email;
 	private String role;
 	private String phone;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinTable(name = "test_avatar")
+	@JoinColumn(name = "user_id")
+	private Avatar avatar;
 
 	public int getUserId() {
 		return userId;
@@ -80,4 +89,13 @@ public class User {
 		this.phone = phone;
 	}
 
+	public Avatar getAvatar() {
+		return avatar;
+	}
+
+	public void setAvatar(Avatar avatar) {
+		this.avatar = avatar;
+	}
+
+	
 }
