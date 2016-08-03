@@ -1,5 +1,6 @@
 package com.iuri.active_bck.repository.user;
 
+
 import org.springframework.data.repository.CrudRepository;
 
 import com.iuri.active_bck.entity.user.User;

@@ -2,17 +2,20 @@ package com.iuri.active_bck.controller.user;
 
 import java.io.IOException;
 
-import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.iuri.active_bck.entity.user.Avatar;
-import com.iuri.active_bck.service.user.AvatarService;
+import com.iuri.active_bck.entity.user.User;
+import com.iuri.active_bck.service.user.UserService;
 
 
 @Controller
@@ -20,19 +23,21 @@ import com.iuri.active_bck.service.user.AvatarService;
 public class AvatarController {
 
 	@Autowired
-	AvatarService avatarService;
+	UserService userService;
 	
-	@RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data", produces = "application/json")
-	public void setAvatarUpload(@RequestParam("file") MultipartFile file,
-			@RequestParam int userId, HttpServletResponse httpResponse) {
-		Avatar avatar = new Avatar();
-		avatar.setUserId(userId);
-		try {
-			avatar.setAvatar(file.getBytes());
-		} catch (IOException e) {
-			e.printStackTrace();
+	@RequestMapping(method = RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public void save(@RequestParam String user, @RequestParam(required = false, value="file") MultipartFile file) throws JsonParseException, JsonMappingException, IOException{
+		ObjectMapper mapper = new ObjectMapper();
+		User userObj = mapper.readValue(user, User.class);
+		if(file!=null){
+			try {
+				userObj.setAvatar(file.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
-		avatarService.saveAvatar(avatar);
+		userService.save(userObj);
 	}
 	
 }

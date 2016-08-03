@@ -1,6 +1,7 @@
 package com.iuri.active_bck.controller.user;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,12 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@RequestMapping(method = RequestMethod.POST, produces="application/json")
+	@ResponseBody
+	public void save(@RequestBody User user){
+		userService.save(user);
+	}
 	
 	@RequestMapping(method = RequestMethod.GET, produces="application/json", params={"username"})
 	@ResponseBody
@@ -53,10 +60,10 @@ public class UserController {
 		return user;
 	}
 	
-	@RequestMapping(method = RequestMethod.POST, produces="application/json")
+	@RequestMapping(method = RequestMethod.GET, produces="application/json")
 	@ResponseBody
-	public void save(@RequestBody User user){
-		userService.save(user);
+	public List<User> findAllUsers(){
+		return userService.findAll();
 	}
 	
 }

@@ -1,16 +1,17 @@
 package com.iuri.active_bck.entity.user;
 
+import java.util.Collection;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.iuri.active_bck.entity.event.TestEvent;
 
 @Entity
 @Table(name = "active_user")
@@ -20,24 +21,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "active_user_gen")
 	@SequenceGenerator(name = "active_user_gen", sequenceName = "active_user_user_id_seq")
 	@Column(name = "user_id")
-	private int userId;
+	private Integer userId;
 	private String username;
 	private String password;
 	private String fullName;
 	private String email;
 	private String role;
 	private String phone;
-	
-	@OneToOne(fetch = FetchType.LAZY)
-	@JoinTable(name = "test_avatar")
-	@JoinColumn(name = "user_id")
-	private Avatar avatar;
+	private byte[] avatar;
 
-	public int getUserId() {
+	@ManyToMany
+	private Collection<TestEvent> events;
+
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
@@ -89,13 +89,20 @@ public class User {
 		this.phone = phone;
 	}
 
-	public Avatar getAvatar() {
+	public byte[] getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(Avatar avatar) {
+	public void setAvatar(byte[] avatar) {
 		this.avatar = avatar;
 	}
 
-	
+	public Collection<TestEvent> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Collection<TestEvent> events) {
+		this.events = events;
+	}
+
 }
