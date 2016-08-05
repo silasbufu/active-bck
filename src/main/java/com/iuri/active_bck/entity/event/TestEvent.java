@@ -1,31 +1,35 @@
 package com.iuri.active_bck.entity.event;
 
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-
-import com.iuri.active_bck.entity.user.User;
 
 @Entity
 @Table(name = "test_event")
 public class TestEvent {
 
+	private Integer eventId;
+	private Integer eventType;
+	private String eventDate;
+	private Integer eventStatus;
+
+	private Set<TestEventAttendance> attendance = new HashSet<TestEventAttendance>(
+			0);
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "test_event_gen")
 	@SequenceGenerator(name = "test_event_gen", sequenceName = "test_event_event_id_seq")
 	@Column(name = "event_id")
-	private Integer eventId;
-
-	@ManyToMany
-	private Collection<User> users;
-
 	public Integer getEventId() {
 		return eventId;
 	}
@@ -34,12 +38,37 @@ public class TestEvent {
 		this.eventId = eventId;
 	}
 
-	public Collection<User> getUsers() {
-		return users;
+	public Integer getEventType() {
+		return eventType;
 	}
 
-	public void setUsers(Collection<User> users) {
-		this.users = users;
+	public void setEventType(Integer eventType) {
+		this.eventType = eventType;
+	}
+
+	public String getEventDate() {
+		return eventDate;
+	}
+
+	public void setEventDate(String eventDate) {
+		this.eventDate = eventDate;
+	}
+
+	public Integer getEventStatus() {
+		return eventStatus;
+	}
+
+	public void setEventStatus(Integer eventStatus) {
+		this.eventStatus = eventStatus;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.eventId", cascade = CascadeType.ALL)
+	public Set<TestEventAttendance> getAttendance() {
+		return this.attendance;
+	}
+
+	public void setAttendance(Set<TestEventAttendance> attendance) {
+		this.attendance = attendance;
 	}
 
 }

@@ -1,26 +1,25 @@
 package com.iuri.active_bck.entity.user;
 
-import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.iuri.active_bck.entity.event.TestEvent;
+import com.iuri.active_bck.entity.event.TestEventAttendance;
 
 @Entity
 @Table(name = "active_user")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "active_user_gen")
-	@SequenceGenerator(name = "active_user_gen", sequenceName = "active_user_user_id_seq")
-	@Column(name = "user_id")
 	private Integer userId;
 	private String username;
 	private String password;
@@ -29,10 +28,13 @@ public class User {
 	private String role;
 	private String phone;
 	private byte[] avatar;
+	
+	private Set<TestEventAttendance> attendance = new HashSet<TestEventAttendance>(0);
 
-	@ManyToMany
-	private Collection<TestEvent> events;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO, generator = "active_user_gen")
+	@SequenceGenerator(name = "active_user_gen", sequenceName = "active_user_user_id_seq")
+	@Column(name = "user_id")
 	public Integer getUserId() {
 		return userId;
 	}
@@ -97,12 +99,15 @@ public class User {
 		this.avatar = avatar;
 	}
 
-	public Collection<TestEvent> getEvents() {
-		return events;
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.userId", cascade=CascadeType.ALL)
+	public Set<TestEventAttendance> getAttendance() {
+		return this.attendance;
 	}
 
-	public void setEvents(Collection<TestEvent> events) {
-		this.events = events;
+	public void setAttendance(Set<TestEventAttendance> attendance) {
+		this.attendance = attendance;
 	}
+
+
 
 }

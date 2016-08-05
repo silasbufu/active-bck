@@ -26,7 +26,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public User findByUserId(int userId){
+	public User findByUserId(Integer userId){
 		return userRepository.findByUserId(userId);
 	}
 	
@@ -40,6 +40,10 @@ public class UserService {
 		return (List<User>) userRepository.findAll();
 	}
 	
+	@Transactional
+	public List<User> findByEventId(Integer eventId){
+		return userRepository.findByEventId(eventId);
+	}
 	
 		
 }

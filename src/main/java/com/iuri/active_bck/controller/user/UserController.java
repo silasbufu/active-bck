@@ -21,49 +21,64 @@ public class UserController {
 
 	@Autowired
 	UserService userService;
-	
-	@RequestMapping(method = RequestMethod.POST, produces="application/json")
+
+	// Save User
+	@RequestMapping(method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public void save(@RequestBody User user){
+	public void save(@RequestBody User user) {
 		userService.save(user);
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, produces="application/json", params={"username"})
+
+	// Find User by Username
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json", params = { "username" })
 	@ResponseBody
-	public HashMap<String, String> findByUsername(@RequestParam String username){
+	public HashMap<String, String> findByUsername(@RequestParam String username) {
 		User user = userService.findByUsername(username);
 		HashMap<String, String> map = new HashMap<String, String>();
-		if(user!=null){
+		if (user != null) {
 			map.put("result", "1");
-		}else{
+		} else {
 			map.put("result", "0");
 		}
 		return map;
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, produces="application/json", params={"userId"})
+
+	// Find User by userId
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json", params = { "userId" })
 	@ResponseBody
-	public User findByUserId(@RequestParam int userId){
+	public User findByUserId(@RequestParam Integer userId) {
 		return userService.findByUserId(userId);
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, produces="application/json", params={"username", "password"})
+
+	// Login user & password
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json", params = {
+			"username", "password" })
 	@ResponseBody
-	public User findByUsernameAndPassword(@RequestParam String username, @RequestParam String password){
+	public User findByUsernameAndPassword(@RequestParam String username,
+			@RequestParam String password) {
 		byte[] byteArrayPass = Base64.decodeBase64(password.getBytes());
 		String decodedPass = new String(byteArrayPass);
-		User user = userService.findByUsernameAndPassword(username, decodedPass);
-		//pentru ca sunt prost
-		if(user!=null){
+		User user = userService
+				.findByUsernameAndPassword(username, decodedPass);
+		// pentru ca sunt prost
+		if (user != null) {
 			user.setPassword(password);
 		}
 		return user;
 	}
-	
-	@RequestMapping(method = RequestMethod.GET, produces="application/json")
+
+	// Get All Users List
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public List<User> findAllUsers(){
+	public List<User> findAllUsers() {
 		return userService.findAll();
 	}
-	
+
+	// Get All Users List
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json", params = {"eventId"})
+	@ResponseBody
+	public List<User> findByEventId(@RequestParam Integer eventId) {
+		return userService.findByEventId(eventId);
+	}
+
 }
