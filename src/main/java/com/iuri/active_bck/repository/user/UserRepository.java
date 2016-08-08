@@ -12,6 +12,6 @@ public interface UserRepository extends CrudRepository<User, Integer>{
 	public User findByUsernameAndPassword(String username, String password);
 	public User findByUsername(String username);
 	public User findByUserId(Integer userId);
-	@Query("from User u join u.attendance a where a.pk.eventId = ?")
+	@Query("from User u join u.attendance a where a.pk.eventId = ? order by a.userAttendanceStatus")
 	public List<User> findByEventId(Integer eventId);
 }

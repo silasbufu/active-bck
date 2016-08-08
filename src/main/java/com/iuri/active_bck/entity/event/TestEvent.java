@@ -1,6 +1,7 @@
 package com.iuri.active_bck.entity.event;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.iuri.active_bck.entity.guest.Guest;
+
 @Entity
 @Table(name = "test_event")
 public class TestEvent {
@@ -22,6 +25,8 @@ public class TestEvent {
 	private Integer eventType;
 	private String eventDate;
 	private Integer eventStatus;
+
+//	private List<Guest> guests;
 
 	private Set<TestEventAttendance> attendance = new HashSet<TestEventAttendance>(
 			0);
@@ -61,6 +66,15 @@ public class TestEvent {
 	public void setEventStatus(Integer eventStatus) {
 		this.eventStatus = eventStatus;
 	}
+
+//	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="event")
+//	public List<Guest> getGuests() {
+//		return guests;
+//	}
+//
+//	public void setGuests(List<Guest> guests) {
+//		this.guests = guests;
+//	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.eventId", cascade = CascadeType.ALL)
 	public Set<TestEventAttendance> getAttendance() {
