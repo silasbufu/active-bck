@@ -6,7 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class TestEventAttendanceId implements Serializable {
+public class EventAttendanceId implements Serializable {
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public class TestEventAttendanceId implements Serializable {
 		this.userId = userId;
 	}
 
-	@Column(name = "test_event_id", nullable = false)
+	@Column(name = "event_id", nullable = false)
 	public Integer getEventId() {
 		return eventId;
 	}
@@ -51,7 +51,7 @@ public class TestEventAttendanceId implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		TestEventAttendanceId other = (TestEventAttendanceId) obj;
+		EventAttendanceId other = (EventAttendanceId) obj;
 		if (eventId == null) {
 			if (other.eventId != null)
 				return false;

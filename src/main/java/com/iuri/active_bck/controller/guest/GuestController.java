@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.iuri.active_bck.entity.guest.Guest;
@@ -31,5 +32,10 @@ public class GuestController {
 	public List<Guest> findByEventId(Integer eventId){
 		return guestService.findByEventId(eventId);
 	}
-	
+
+	@RequestMapping(method = RequestMethod.DELETE, produces = "application/json")
+	@ResponseBody
+	public void delete(@RequestParam Integer guestId){
+		guestService.delete(guestId);
+	}
 }

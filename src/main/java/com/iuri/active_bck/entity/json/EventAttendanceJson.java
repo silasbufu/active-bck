@@ -1,6 +1,6 @@
 package com.iuri.active_bck.entity.json;
 
-public class TestEventAttendanceJson {
+public class EventAttendanceJson {
 
 	private Integer userId;
 	private Integer eventId;

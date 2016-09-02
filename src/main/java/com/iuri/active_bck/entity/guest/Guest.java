@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.iuri.active_bck.entity.event.TestEvent;
+import com.iuri.active_bck.entity.event.Event;
 
 @Entity
 @Table(name = "guest_user")
@@ -61,15 +61,5 @@ public class Guest {
 	public void setEventId(Integer eventId) {
 		this.eventId = eventId;
 	}
-
-	// @ManyToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name = "event_id")
-	// public TestEvent getEvent() {
-	// return event;
-	// }
-	//
-	// public void setEvent(TestEvent event) {
-	// this.event = event;
-	// }
 
 }

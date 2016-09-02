@@ -7,13 +7,13 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.iuri.active_bck.entity.json.TestEventAttendanceId;
+import com.iuri.active_bck.entity.json.EventAttendanceId;
 
 @Entity
-@Table(name = "test_event_attendance")
-public class TestEventAttendance {
+@Table(name = "event_attendance")
+public class EventAttendance {
 
-	private TestEventAttendanceId pk = new TestEventAttendanceId();
+	private EventAttendanceId pk = new EventAttendanceId();
 	private Integer userAttendanceStatus;
 
 	@EmbeddedId
@@ -21,11 +21,11 @@ public class TestEventAttendance {
 		@AttributeOverride(name = "userId", column = @Column(name = "user_id", nullable = false)),
 		@AttributeOverride(name = "eventId", column = @Column(name = "event_id", nullable = false)),
 	})
-	public TestEventAttendanceId getPk(){
+	public EventAttendanceId getPk(){
 		return pk;
 	}
 	
-	public void setPk(TestEventAttendanceId pk){
+	public void setPk(EventAttendanceId pk){
 		this.pk = pk;
 	}
 

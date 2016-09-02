@@ -10,20 +10,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.iuri.active_bck.entity.event.TestEvent;
-import com.iuri.active_bck.service.event.TestEventService;
+import com.iuri.active_bck.entity.event.Event;
+import com.iuri.active_bck.service.event.EventService;
 
 @Controller
-@RequestMapping(value = "rest/test-event")
-public class TestEventController {
+@RequestMapping(value = "rest/event")
+public class EventController {
 
 	@Autowired
-	TestEventService testEventService;
+	EventService testEventService;
 	
 	//Save Event
 	@RequestMapping(method = RequestMethod.POST, produces="application/json")
 	@ResponseBody
-	public void save(@RequestBody TestEvent testEvent){
+	public void save(@RequestBody Event testEvent){
 		testEventService.save(testEvent);
 	}
 	
@@ -37,14 +37,14 @@ public class TestEventController {
 	//All Events List
 	@RequestMapping(method = RequestMethod.GET, produces="application/json")
 	@ResponseBody
-	public List<TestEvent> findAll(){
+	public List<Event> findAll(){
 		return testEventService.findAll();
 	}
 	
 	//All Events By Type
 	@RequestMapping(method = RequestMethod.GET, produces="application/json", params = {"eventType"})
 	@ResponseBody
-	public List<TestEvent> findAllByEventType(@RequestParam Integer eventType){
+	public List<Event> findAllByEventType(@RequestParam Integer eventType){
 		return testEventService.findAllByEventType(eventType);
 	}
 	

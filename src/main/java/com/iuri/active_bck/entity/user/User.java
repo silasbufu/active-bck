@@ -14,7 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.iuri.active_bck.entity.event.TestEventAttendance;
+import com.iuri.active_bck.entity.event.EventAttendance;
 
 @Entity
 @Table(name = "active_user")
@@ -27,9 +27,15 @@ public class User {
 	private String email;
 	private String role;
 	private String phone;
+	private Integer customTheme;
+	private String menuBackground;
+	private String menuText;
+	private String bodyBackground;
+	private String panelBackground;
+	private String bodyText;
 	private byte[] avatar;
-	
-	private Set<TestEventAttendance> attendance = new HashSet<TestEventAttendance>(0);
+
+	private Set<EventAttendance> attendance = new HashSet<EventAttendance>(0);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "active_user_gen")
@@ -91,6 +97,54 @@ public class User {
 		this.phone = phone;
 	}
 
+	public Integer getCustomTheme() {
+		return customTheme;
+	}
+
+	public void setCustomTheme(Integer customTheme) {
+		this.customTheme = customTheme;
+	}
+
+	public String getMenuBackground() {
+		return menuBackground;
+	}
+
+	public void setMenuBackground(String menuBackground) {
+		this.menuBackground = menuBackground;
+	}
+
+	public String getMenuText() {
+		return menuText;
+	}
+
+	public void setMenuText(String menuText) {
+		this.menuText = menuText;
+	}
+
+	public String getBodyBackground() {
+		return bodyBackground;
+	}
+
+	public void setBodyBackground(String bodyBackground) {
+		this.bodyBackground = bodyBackground;
+	}
+
+	public String getPanelBackground() {
+		return panelBackground;
+	}
+
+	public void setPanelBackground(String panelBackground) {
+		this.panelBackground = panelBackground;
+	}
+
+	public String getBodyText() {
+		return bodyText;
+	}
+
+	public void setBodyText(String bodyText) {
+		this.bodyText = bodyText;
+	}
+
 	public byte[] getAvatar() {
 		return avatar;
 	}
@@ -99,15 +153,13 @@ public class User {
 		this.avatar = avatar;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.userId", cascade=CascadeType.ALL)
-	public Set<TestEventAttendance> getAttendance() {
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.userId", cascade = CascadeType.ALL)
+	public Set<EventAttendance> getAttendance() {
 		return this.attendance;
 	}
 
-	public void setAttendance(Set<TestEventAttendance> attendance) {
+	public void setAttendance(Set<EventAttendance> attendance) {
 		this.attendance = attendance;
 	}
-
-
 
 }

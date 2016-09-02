@@ -25,4 +25,9 @@ public class GuestService {
 		return guestRepository.findByEventId(eventId);
 	}
 	
+	@Transactional(readOnly = false)
+	public void delete(Integer guestId){
+		guestRepository.delete(guestId);
+	}
+	
 }

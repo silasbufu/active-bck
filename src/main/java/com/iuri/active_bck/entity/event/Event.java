@@ -1,7 +1,6 @@
 package com.iuri.active_bck.entity.event;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,21 +14,17 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.iuri.active_bck.entity.guest.Guest;
-
 @Entity
-@Table(name = "test_event")
-public class TestEvent {
+@Table(name = "event")
+public class Event {
 
 	private Integer eventId;
 	private Integer eventType;
 	private String eventDate;
 	private Integer eventStatus;
+	private Integer locationId;
 
-//	private List<Guest> guests;
-
-	private Set<TestEventAttendance> attendance = new HashSet<TestEventAttendance>(
-			0);
+	private Set<EventAttendance> attendance = new HashSet<EventAttendance>(0);
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "test_event_gen")
@@ -67,21 +62,20 @@ public class TestEvent {
 		this.eventStatus = eventStatus;
 	}
 
-//	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy="event")
-//	public List<Guest> getGuests() {
-//		return guests;
-//	}
-//
-//	public void setGuests(List<Guest> guests) {
-//		this.guests = guests;
-//	}
+	public Integer getLocationId() {
+		return locationId;
+	}
+
+	public void setLocationId(Integer locationId) {
+		this.locationId = locationId;
+	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "pk.eventId", cascade = CascadeType.ALL)
-	public Set<TestEventAttendance> getAttendance() {
+	public Set<EventAttendance> getAttendance() {
 		return this.attendance;
 	}
 
-	public void setAttendance(Set<TestEventAttendance> attendance) {
+	public void setAttendance(Set<EventAttendance> attendance) {
 		this.attendance = attendance;
 	}
 
