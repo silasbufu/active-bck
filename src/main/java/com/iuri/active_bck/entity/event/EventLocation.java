@@ -18,10 +18,12 @@ public class EventLocation {
 	private String phone;
 	private String email;
 	private String coordinates;
+	private Integer defaultLocation;
+	private Integer eventType;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "event_location_gen")
-	@SequenceGenerator(name = "event_location_gen", sequenceName = "'event_location_location_id_seq")
+	@SequenceGenerator(name = "event_location_gen", sequenceName = "event_location_location_id_seq")
 	@Column(name = "location_id")
 	public Integer getLocationId() {
 		return locationId;
@@ -69,6 +71,22 @@ public class EventLocation {
 
 	public void setCoordinates(String coordinates) {
 		this.coordinates = coordinates;
+	}
+
+	public Integer getDefaultLocation() {
+		return defaultLocation;
+	}
+
+	public void setDefaultLocation(Integer defaultLocation) {
+		this.defaultLocation = defaultLocation;
+	}
+
+	public Integer getEventType() {
+		return eventType;
+	}
+
+	public void setEventType(Integer eventType) {
+		this.eventType = eventType;
 	}
 
 }
